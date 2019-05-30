@@ -71,6 +71,7 @@ func pkillFetch(myCfg *aws.Config) {
 	if err := iCF.Configure(*cfConfig); err != nil {
 		panic(err)
 	}
+
 	iCF.GetServices()
 	iCF.GetResources()
 	iCF.GetResourcesDetail()
