@@ -1,4 +1,4 @@
-package tfterms
+package terra
 
 // using the same terms as terraform
 // to create the status

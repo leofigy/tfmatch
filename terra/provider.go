@@ -1,4 +1,4 @@
-package tfterms
+package terra
 
 // ResourceProvider
 type TerraProvider interface {
