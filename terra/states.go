@@ -1,39 +1,49 @@
 package terra
 
+import "encoding/json"
+
+//This structs are an excerpt of the V4
+// state file generation from Terraform
+
 const stateVersion = 4
 const TFVersion = "0.12.0"
 
-/* Items in the main terrafor state file */
-type ValType struct {
-	Value string `json:"value"`
-	Type  string `json:"type"`
+// V4 state file
+type StateV4 struct {
+	Version          int                      `json:"version"`
+	TerraformVersion string                   `json:"terraform_version"`
+	Serial           uint64                   `json:"serial"`
+	Lineage          string                   `json:"lineage"`
+	RootOutputs      map[string]OutputStateV4 `json:"outputs"`
+	Resources        []ResourceStateV4        `json:"resources"`
 }
 
-// Global state
-type TerraState struct {
-	Version   int    `json:"version"`
-	TFVersion string `json:"terraform_version"`
-	Serial    int64  `json:"serial"`
-	Lineage   string `json:"lineage"`
-
-	Outputs map[string]ValType `json:"outputs"`
-	// currently checking
-	Resources []*map[string]ResourceState `json:"resources"`
+type OutputStateV4 struct {
+	ValueRaw     json.RawMessage `json:"value"`
+	ValueTypeRaw json.RawMessage `json:"type"`
+	Sensitive    bool            `json:"sensitive,omitempty"`
 }
 
-type ResourceState struct {
-	Name      string       `json:"name"`
-	Type      string       `json:"type"`
-	Mode      ResourceMode `json:"mode"`           // by now all are managed
-	Each      EachMode     `json:"each,omitempty"` // to do the list
-	Provider  string       `json:"provider"`
-	Instances []InstanceState
+type ResourceStateV4 struct {
+	Module         string                  `json:"module,omitempty"`
+	Mode           string                  `json:"mode"`
+	Type           string                  `json:"type"`
+	Name           string                  `json:"name"`
+	EachMode       string                  `json:"each,omitempty"`
+	ProviderConfig string                  `json:"provider"`
+	Instances      []InstanceObjectStateV4 `json:"instances"`
 }
 
-type InstanceState struct {
-	SchemaVersion int      `json:"schema_version"`
-	IndexKey      int      `json:"index_key, omitempty"`
-	Dependencies  []string `json:"depends_on,omitempty"`
-	// ToDo to match with the fields in ptkill
-	Attributes map[string]interface{} `json:"attributes"`
+type InstanceObjectStateV4 struct {
+	IndexKey interface{} `json:"index_key,omitempty"`
+	Status   string      `json:"status,omitempty"`
+	Deposed  string      `json:"deposed,omitempty"`
+
+	SchemaVersion  uint64            `json:"schema_version"`
+	AttributesRaw  json.RawMessage   `json:"attributes,omitempty"`
+	AttributesFlat map[string]string `json:"attributes_flat,omitempty"`
+
+	PrivateRaw []byte `json:"private,omitempty"`
+
+	Dependencies []string `json:"depends_on,omitempty"`
 }
