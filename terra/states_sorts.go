@@ -1,7 +1,7 @@
 package terra
 
 // helpers to sort the items in the file
-// based on terraform no credits for this 
+// based on terraform no credits for this
 
 type SortableResourcesV4 []ResourceStateV4
 type SortableInstancesV4 []InstanceObjectStateV4
@@ -39,15 +39,15 @@ func (list SortableInstancesV4) Swap(i, j int) {
 }
 
 func (list SortableInstancesV4) Less(i, j int) bool {
-	// instances indexes 
+	// instances indexes
 	Ai, Bi := list[i].IndexKey, list[j].IndexKey
 	if Ai != Bi {
-		if (Ai == nil) != (Bi == nil){
+		if (Ai == nil) != (Bi == nil) {
 			return Ai == nil
 		}
-		// nums 
-		if AiInt , isInt := Ai.(int); isInt {
-			if BiInt, isInt := Bi.(int); isInt{
+		// nums
+		if AiInt, isInt := Ai.(int); isInt {
+			if BiInt, isInt := Bi.(int); isInt {
 				return AiInt < BiInt
 			}
 			return true
@@ -65,5 +65,5 @@ func (list SortableInstancesV4) Less(i, j int) bool {
 		return list[i].Deposed < list[j].Deposed
 	}
 
-	return false 
+	return false
 }
