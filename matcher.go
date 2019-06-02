@@ -9,6 +9,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws/external"
 	"github.com/aws/aws-sdk-go-v2/service/cloudformation"
 	pkill "github.com/pitakill/aws_resources"
+
+	"github.com/leofigy/tfmatch/awspk"
 )
 
 const cloudc = "cloudformation"
@@ -76,4 +78,5 @@ func pkillFetch(myCfg *aws.Config) {
 	iCF.GetResources()
 	iCF.GetResourcesDetail()
 
+	awspk.InspectResources(iCF)
 }
