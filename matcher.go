@@ -74,9 +74,5 @@ func pkillFetch(myCfg *aws.Config) {
 		panic(err)
 	}
 
-	iCF.GetServices()
-	iCF.GetResources()
-	iCF.GetResourcesDetail()
-
-	awspk.InspectResources(iCF)
+	awspk.InspectResources(iCF.(pkill.FactoryData))
 }
