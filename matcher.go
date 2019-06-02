@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/external"
 	"github.com/aws/aws-sdk-go-v2/service/cloudformation"
-	pkill "github.com/pitakill/aws_resources"
+	pkill "github.com/leofigy/aws_resources"
 
 	"github.com/leofigy/tfmatch/awspk"
 )

@@ -2,7 +2,8 @@ package awspk
 
 import (
 	"fmt"
-	pkill "github.com/pitakill/aws_resources"
+
+	pkill "github.com/leofigy/aws_resources"
 )
 
 func InspectResources(stack pkill.Factory) {
